@@ -1,12 +1,10 @@
 name: deploy-to-oci
-
 on:
   push:
     branches: [main]
-
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: hw-oci-runner
     steps:
       - name: Testing self-hosted runner
         run: whoami
