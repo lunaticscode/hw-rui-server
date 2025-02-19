@@ -6,7 +6,7 @@ jobs:
   build:
     runs-on: hw-oci-runner
     steps:
-      - name: Testing self-hosted runner
-        run:
-          - whoami
-          - sudo docker --version
+      - name: Testing self-hosted runner, check user.
+          run: whoami
+      - name: 
+          run: sudo docker --version
