@@ -7,5 +7,6 @@ jobs:
     runs-on: hw-oci-runner
     steps:
       - name: Testing self-hosted runner
-        run: whoami
-          sudo docker --version
+        run:
+          - whoami
+          - sudo docker --version
