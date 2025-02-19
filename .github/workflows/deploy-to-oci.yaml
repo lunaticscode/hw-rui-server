@@ -8,5 +8,5 @@ jobs:
     steps:
       - name: Testing self-hosted runner, check user.
           run: whoami
-      - name: 
+      - name: check executable docker cli  
           run: sudo docker --version
