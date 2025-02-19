@@ -1,0 +1,13 @@
+name: deploy-to-oci
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - name: Testing self-hosted runner
+        run: whoami
+          sudo docker --version
