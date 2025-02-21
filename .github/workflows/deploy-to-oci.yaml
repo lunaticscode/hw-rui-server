@@ -22,7 +22,6 @@ jobs:
     steps:
       - name: Git Checkout and check exist dockerfile.
         uses: actions/checkout@v4
-        run: cat Dockerfile
       - name: Build docker image.
         run: sudo docker build -t $DOCKER_IMAGE_NAME .
       - name: Check created image.
