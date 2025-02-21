@@ -18,8 +18,8 @@ const copyEnv = () => {
         const envFilePath = path.join(cwd(), ".env");
         fs.copyFileSync(envFilePath, path.join(cwd(), "dist", ".env"));
       } catch (err) {
-        console.err("(!)Failed copy .env file\n\n");
-        console.err(err);
+        console.error("(!)Failed copy .env file\n\n");
+        console.error(err);
       }
     },
   };
