@@ -1,12 +1,38 @@
 name: deploy-to-oci
+
 on:
   push:
     branches: [main]
+
+env:
+  DOCKER_IMAGE_NAME: hw-rui-server-image
+  DOCKER_CONTAINER_NAME: hw-rui-server-container
+
 jobs:
-  build:
+  warmup:
     runs-on: hw-oci-runner
     steps:
       - name: Testing self-hosted runner, check user.
         run: whoami
       - name: check executable docker cli
         run: sudo docker --version
+
+  docker-build:
+    runs-on: hw-oci-runner
+    steps:
+      - name: Build docker image.
+        run: sudo docker build -t $DOCKER_IMAGE_NAME .
+      - name: Check created image.
+        run: sudo docker images
+
+  docker-container-run:
+    runs-on: hw-oci-runner
+    steps:
+      # - name: Stop and Remove prev container.
+      #   run: sudo docker stop hw-docker-rui-server && sudo docker rm hw-docker-rui-server
+      # - name: Remove prev image.
+      #   run: sudo docker rmi hw-docker-rui-server
+      # - name: Check docker container status.
+      #   run: sudo docker ps
+      - name: Run docker container from create image.
+        run: sudo docker run -it -d -p 8000:8001 --name $DOCKER_CONTAINER_NAME $DOCKER_IMAGE_NAME
