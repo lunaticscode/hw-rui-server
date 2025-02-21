@@ -18,6 +18,7 @@ jobs:
         run: sudo docker --version
 
   docker-build:
+    needs: warmup
     runs-on: hw-oci-runner
     steps:
       - name: Git Checkout and check exist dockerfile.
@@ -28,6 +29,7 @@ jobs:
         run: sudo docker images
 
   docker-container-run:
+    needs: docker-build
     runs-on: hw-oci-runner
     steps:
       # - name: Stop and Remove prev container.
