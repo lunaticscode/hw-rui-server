@@ -14,8 +14,8 @@ jobs:
     steps:
       - name: Testing SERVER_CONFIG print
         run: echo $SERVER_CONFIG
-        env:
-          CONFIG: ${{secrets.SERVER_CONFIG}}
+      - name: make test file
+        run: echo $SERVER_CONFIG > /home/ubuntu/test.txt
       - name: Testing self-hosted runner, check user.
         run: whoami
       - name: check executable docker cli
