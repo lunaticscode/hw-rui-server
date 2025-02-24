@@ -8,7 +8,6 @@ RUN pnpm run build
 
 FROM node:alpine
 WORKDIR /usr/src/app
-COPY export-variables.sh ./
 COPY --from=BUILDER /usr/src/app/dist ./dist
 COPY ./public ./public
 # ENTRYPOINT ["/usr/src/app/export-variables.sh"]

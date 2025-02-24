@@ -11,29 +11,32 @@ env:
 jobs:
   warmup:
     runs-on: hw-oci-runner
+    environment: ${{ vars.CI_CONFIG }}
     steps:
+      - name: Testing CI_CONFIG.SERVER_CONFIG
+        run: echo "$SERVER_CONFIG"
       - name: Testing self-hosted runner, check user.
         run: whoami
       - name: check executable docker cli
         run: docker --version
 
-  docker-build:
-    needs: warmup
-    runs-on: hw-oci-runner
-    environment: ${{ vars.CI_CONFIG }}
-    steps:
-      - name: Testing CI_CONFIG.SERVER_CONFIG
-        run: echo $SERVER_CONFIG
-      - name: Git Checkout and check exist dockerfile.
-        uses: actions/checkout@v4
-      - name: Build docker image.
-        run: docker build -t $DOCKER_IMAGE_NAME .
-      - name: Check created image.
-        run: docker images
+  # docker-build:
+  #   needs: warmup
+  #   runs-on: hw-oci-runner
+  #   environment: ${{ vars.CI_CONFIG }}
+  #   steps:
+  #     - name: Testing CI_CONFIG.SERVER_CONFIG
+  #       run: echo "$SERVER_CONFIG"
+  #     - name: Git Checkout and check exist dockerfile.
+  #       uses: actions/checkout@v4
+  #     - name: Build docker image.
+  #       run: docker build -t $DOCKER_IMAGE_NAME .
+  #     - name: Check created image.
+  #       run: docker images
 
-  docker-container-run:
-    needs: docker-build
-    runs-on: hw-oci-runner
-    steps:
-      - name: Run docker container from create image.
-        run: docker run -it -d -p 8000:8001 --name $DOCKER_CONTAINER_NAME $DOCKER_IMAGE_NAME
+  # docker-container-run:
+  #   needs: docker-build
+  #   runs-on: hw-oci-runner
+  #   steps:
+  #     - name: Run docker container from create image.
+  #       run: docker run -it -d -p 8000:8001 --name $DOCKER_CONTAINER_NAME $DOCKER_IMAGE_NAME
