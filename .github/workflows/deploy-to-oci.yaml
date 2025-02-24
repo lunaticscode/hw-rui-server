@@ -7,21 +7,15 @@ on:
 env:
   DOCKER_IMAGE_NAME: hw-rui-server-image
   DOCKER_CONTAINER_NAME: hw-rui-server-container
-
+  SERVER_CONFIG: ${{secrets.SERVER_CONFIG}}
 jobs:
   warmup:
     runs-on: hw-oci-runner
     steps:
       - name: Testing SERVER_CONFIG print
-        run: echo $CONFIG
-        env:
-          CONFIG: ${{ secrets.SERVER_CONFIG }}
-      - name: Make test-config file
-        run: echo "$CONFIG" > test.txt
-      - name: Printi test.txt
-        run: cat test.txt
-      - name: Testing SERVER_CONFIG(declared local scope)
         run: echo $SERVER_CONFIG
+        env:
+          CONFIG: ${{secrets.SERVER_CONFIG}}
       - name: Testing self-hosted runner, check user.
         run: whoami
       - name: check executable docker cli
