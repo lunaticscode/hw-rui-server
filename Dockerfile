@@ -8,10 +8,9 @@ RUN pnpm run build
 
 FROM node:alpine
 WORKDIR /usr/src/app
+COPY export-variables.sh ./
 COPY --from=BUILDER /usr/src/app/dist ./dist
 COPY ./public ./public
-ENV APP_PORT="8001"
-ENV API_HEADER_TOKEN="hw-rui-server-test"
-EXPOSE 8000
+# ENTRYPOINT ["/usr/src/app/export-variables.sh"]
 CMD ["node", "dist/app.js"]
 

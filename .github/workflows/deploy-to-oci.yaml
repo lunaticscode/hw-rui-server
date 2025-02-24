@@ -15,28 +15,25 @@ jobs:
       - name: Testing self-hosted runner, check user.
         run: whoami
       - name: check executable docker cli
-        run: sudo docker --version
+        run: docker --version
 
   docker-build:
     needs: warmup
     runs-on: hw-oci-runner
+    environment: ${{ vars.CI_CONFIG }}
     steps:
+      - name: Testing CI_CONFIG.SERVER_CONFIG
+        run: echo $SERVER_CONFIG
       - name: Git Checkout and check exist dockerfile.
         uses: actions/checkout@v4
       - name: Build docker image.
-        run: sudo docker build -t $DOCKER_IMAGE_NAME .
+        run: docker build -t $DOCKER_IMAGE_NAME .
       - name: Check created image.
-        run: sudo docker images
+        run: docker images
 
   docker-container-run:
     needs: docker-build
     runs-on: hw-oci-runner
     steps:
-      # - name: Stop and Remove prev container.
-      #   run: sudo docker stop hw-docker-rui-server && sudo docker rm hw-docker-rui-server
-      # - name: Remove prev image.
-      #   run: sudo docker rmi hw-docker-rui-server
-      # - name: Check docker container status.
-      #   run: sudo docker ps
       - name: Run docker container from create image.
-        run: sudo docker run -it -d -p 8000:8001 --name $DOCKER_CONTAINER_NAME $DOCKER_IMAGE_NAME
+        run: docker run -it -d -p 8000:8001 --name $DOCKER_CONTAINER_NAME $DOCKER_IMAGE_NAME
