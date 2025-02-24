@@ -12,10 +12,10 @@ jobs:
   warmup:
     runs-on: hw-oci-runner
     steps:
-      - name: Testing SERVER_CONFIG
+      - name: Testing SERVER_CONFIG print
         run: echo $CONFIG
         env:
-          CONFIG: ${{secrets.SERVER_CONFIG}}
+          CONFIG: ${{ secrets.SERVER_CONFIG }}
       - name: Testing SERVER_CONFIG(declared local scope)
         run: echo $SERVER_CONFIG
       - name: Testing self-hosted runner, check user.
