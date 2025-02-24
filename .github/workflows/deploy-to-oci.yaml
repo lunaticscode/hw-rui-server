@@ -7,14 +7,15 @@ on:
 env:
   DOCKER_IMAGE_NAME: hw-rui-server-image
   DOCKER_CONTAINER_NAME: hw-rui-server-container
-  SERVER_CONFIG: ${{ secrets.SERVER_CONFIG }}
 
 jobs:
   warmup:
     runs-on: hw-oci-runner
     steps:
       - name: Testing SERVER_CONFIG
-        run: echo ${{ secrets.SERVER_CONFIG }}
+        run: echo $CONFIG
+        env:
+          CONFIG: ${{secrets.SERVER_CONFIG}}
       - name: Testing SERVER_CONFIG(declared local scope)
         run: echo $SERVER_CONFIG
       - name: Testing self-hosted runner, check user.
