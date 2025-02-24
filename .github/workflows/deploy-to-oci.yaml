@@ -16,6 +16,10 @@ jobs:
         run: echo $CONFIG
         env:
           CONFIG: ${{ secrets.SERVER_CONFIG }}
+      - name: Make test-config file
+        run: echo "$CONFIG" > test.txt
+      - name: Printi test.txt
+        run: cat test.txt
       - name: Testing SERVER_CONFIG(declared local scope)
         run: echo $SERVER_CONFIG
       - name: Testing self-hosted runner, check user.
