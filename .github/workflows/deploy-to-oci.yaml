@@ -9,7 +9,7 @@ env:
   DOCKER_CONTAINER_NAME: hw-rui-server-container
   SERVER_CONFIG: ${{secrets.SERVER_CONFIG}}
 jobs:
-  setup-config:
+  warmup:
     runs-on: hw-oci-runner
     steps:
       - name: Testing self-hosted runner, check user.
