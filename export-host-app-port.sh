@@ -20,9 +20,9 @@ fi
 echo "::: So, Green Container port will be $GREEN_CONTAINER_HOST_PORT"
 echo "::: Export APP_PORT, it will be using in Docker-Build."
 export HOST_APP_PORT=$GREEN_CONTAINER_HOST_PORT
-
 printf "\n\n"
-
+env
+printf "\n\n"
 echo "[#] HOST_APP_PORT is exported."
 
 
