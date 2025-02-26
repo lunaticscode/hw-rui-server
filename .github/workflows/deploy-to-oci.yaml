@@ -8,6 +8,7 @@ env:
   DOCKER_IMAGE_NAME: hw-rui-server-image
   DOCKER_CONTAINER_NAME: hw-rui-server-container
   SERVER_CONFIG: ${{secrets.SERVER_CONFIG}}
+
 jobs:
   warmup:
     runs-on: hw-oci-runner
@@ -17,26 +18,21 @@ jobs:
       - name: check executable docker cli
         run: docker --version
 
-  docker-build:
+  docker-setup:
     needs: warmup
     runs-on: hw-oci-runner
     steps:
       - name: Git Checkout and check exist dockerfile.
         uses: actions/checkout@v4
-      - name: Build docker image.
-        run: docker build -t $DOCKER_IMAGE_NAME --build-arg SERVER_CONFIG=$SERVER_CONFIG --no-cache .
-      - name: Check created image.
-        run: docker images
-      - name: Exporting HOST_APP_PORT.
-        run: source ./export-host-app-port.sh
-      - name: Check exported HOST_APP_PORT.
-        run: echo $HOST_APP_PORT
-      - name: Create rui-server-container
-        run: docker run -it -d -p $HOST_APP_PORT:8001 --name $DOCKER_CONTAINER_NAME $DOCKER_IMAGE_NAME
-
-  # docker-container-run:
-  #   needs: docker-build
-  #   runs-on: hw-oci-runner
-  #   steps:
-  #     - name: Run docker container from create image.
-  #       run: docker run -it -d -p 8000:8001 --name $DOCKER_CONTAINER_NAME $DOCKER_IMAGE_NAME
+      - name: Run setup script file.
+        run: sh ./run-docker.sh $SERVER_CONFIG
+      # - name: Build docker image.
+      #   run: docker build -t $DOCKER_IMAGE_NAME --build-arg SERVER_CONFIG=$SERVER_CONFIG --no-cache .
+      # - name: Check created image.
+      #   run: docker images
+      # - name: Exporting HOST_APP_PORT.
+      #   run: source ./export-host-app-port.sh
+      # - name: Check exported HOST_APP_PORT.
+      #   run: echo $HOST_APP_PORT
+      # - name: Create rui-server-container
+      #   run: docker run -it -d -p $HOST_APP_PORT:8001 --name $DOCKER_CONTAINER_NAME $DOCKER_IMAGE_NAME
