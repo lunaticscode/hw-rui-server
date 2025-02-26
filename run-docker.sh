@@ -66,5 +66,7 @@ if  [ $IS_RUNNING_BLUE = "true" ]; then
     rm -f blue_container_status.log
     echo "[#] Change nginx config file from blue to green."
 fi
-echo "fininshed"
+
+echo "[#] Finished"
+docker ps --filter "name=$DOCKER_CONTAINER_NAME"
 
