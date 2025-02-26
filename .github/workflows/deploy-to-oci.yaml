@@ -31,6 +31,7 @@ jobs:
         run: source ./export-host-app-port.sh
       - name: Check exported HOST_APP_PORT.
         run: echo $HOST_APP_PORT
+      - name: docker run -it -d -p $HOST_APP_PORT:8001 --name $DOCKER_CONTAINER_NAME $DOCKER_IMAGE_NAME
 
   # docker-container-run:
   #   needs: docker-build
