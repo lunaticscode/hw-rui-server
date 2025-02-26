@@ -65,10 +65,6 @@ if  [ $IS_RUNNING_BLUE = "true" ]; then
     kill $EVENT_PID 2>/dev/null
     rm -f blue_container_status.log
     echo "[#] Change nginx config file from blue to green."
-else 
-    # rm -f blue_container_status.log
-    # docker events --filter "container=$CONTAINER_NAME" --format 'Status={{.Status}}' > blue_container_status.log &
-    # EVENT_PID=$!
 fi
 echo "fininshed"
 
